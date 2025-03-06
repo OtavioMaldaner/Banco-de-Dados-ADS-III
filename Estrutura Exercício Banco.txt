@@ -1,0 +1,5 @@
+Funcionário: codigo(PK), salario, nome, endereço, IdAgencia
+Agencia: numero (PK), cidade, IdConta
+Conta: numero (PK), saldo, IdAgencia, IdCliente
+Transacoes: numero (PK), data, valor, IdConta
+Cliente: código (PK), nome, RG, cidade

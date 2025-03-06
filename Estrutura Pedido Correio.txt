@@ -1,0 +1,5 @@
+Cliente: numero(pk), nome, sobrenome, cep
+Funcionário: numero(pk), nome, sobrenome, cep
+Pedido: numero(pk), data_recebimento, data_esperada, data_entrega_real, IdCliente, IdFuncionario
+Peça: numero(pk), nome, preco, quantidade
+QtdPedido: IdPeca, IdPedido, quantidade

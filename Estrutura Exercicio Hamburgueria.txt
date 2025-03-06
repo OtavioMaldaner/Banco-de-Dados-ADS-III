@@ -1,0 +1,10 @@
+Tamanho: numero (PK), descrição
+Hamburger: numero, nome
+Tamanho Hamburger: IdTamanho, IdHamburger, preco
+Ingrediente: numero (PK), descrição
+IngredienteHamburger: IdIngrediente, IdHamburger
+Pedido: numero (PK), data, hora, observacoes, IdBairro, IdCliente, IdFuncRegistra, IdFuncEntrega, endereco_entrega
+HamburgerPedido: IdPedido, IdHamburger, tamanho, preco, quantidade
+Bairro: numero (PK), nome, tempo_entrega
+CLiente: cpf (PK), nome, telefone, endereço
+Funcionario: numero (PK), nome, celular
