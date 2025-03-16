@@ -1,0 +1,7 @@
+Em um restaurante é possível fazer reservas. Para cada reserva, é cadastrado um código único, a quantidade de pessoas, a data da reserva e o status da reserva.
+
+Cada reserva possui uma ou mais mesas, que possuem um número único, a quantidade de pessoas e o status atual.
+
+Cada mesa possui um pedido vinculado, com um código único e a data e hora que foi realizado.
+
+Uma reserva é feita por um cliente, que possui um cpf, o nome e o telefone para contato
