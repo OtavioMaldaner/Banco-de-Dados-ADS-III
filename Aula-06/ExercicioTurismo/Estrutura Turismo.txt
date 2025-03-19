@@ -5,7 +5,9 @@ Museu: codigo_PontoTuristico (pk, fk), numero_salas
 Fundador: codigo (pk), nome, data_nasc, data_morte (null), nacionalidade, atividade_profissional
 Fundador_Museu: codigo_Fundador (fk), codigo_PontoTuristico 
 (fk)
-Restaurante: codigo (pk), nome, endereco, categoria, codigo_cidade (fk), codigo_Hotel (fk)
+Restaurante: codigo (pk), nome, endereco, codigo_Categoria (fk), codigo_cidade (fk), codigo_Hotel (fk)
 Hotel: codigo (pk), nome, categoria, codigo_cidade (fk)
-Quarto: numero, tipo, valor, codigo (pk), codigo_hotel (fk)
-
+Quarto: numero, codigo_TipoQuarto, codigo (pk), codigo_hotel (fk)
+Categoria: codigo (pk), descricao
+TipoQuarto: codigo (pk), descricao
+TipoQuartoHotel: codigo_TipoQuarto (fk), codigo_Hotel (fk), custo_diaria
