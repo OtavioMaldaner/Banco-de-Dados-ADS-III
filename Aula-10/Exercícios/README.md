@@ -284,7 +284,7 @@ FROM
 INNER JOIN projeto ON projeto.Dnum = funcionario.Dnr
 INNER JOIN trabalha_em ON trabalha_em.Fcpf = funcionario.Cpf AND trabalha_em.Pnr = projeto.Projnumero
 WHERE
-    funcionario.Dnr = 5 AND trabalha_em.Horas >= 10
+    funcionario.Dnr = 5 AND trabalha_em.Horas >= 10 AND projeto.Projnome = "ProdutoX"
 ```
 
 ## 15. Liste os nomes de todos os funcionários que tem um dependente com o primeiro nome igual ao seu.
