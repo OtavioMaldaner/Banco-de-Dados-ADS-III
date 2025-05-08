@@ -56,17 +56,20 @@ GROUP BY
 
 ## 5. Listar a cidade de todos clientes que tenham comprado o item ‘Frigobar’ mas não tenham comprado o item ‘DVD’.
 ```sql
-SELECT
-    cliente.cidade
-FROM
-    `cliente`
-LEFT JOIN pedido ON pedido.num_cliente = cliente.num_cliente
-LEFT JOIN item_pedido ON pedido.num_pedido = item_pedido.num_pedido
-LEFT JOIN item ON item_pedido.num_item = item.num_item
-WHERE
-    item.descricao = "Frigobar" OR item.descricao <> "DVD"
-GROUP BY
-    cliente.cidade
+SELECT DISTINCT c.cidade
+FROM cliente c
+JOIN pedido p ON c.num_cliente = p.num_cliente
+JOIN item_pedido ip ON p.num_pedido = ip.num_pedido
+JOIN item i ON ip.num_item = i.num_item
+WHERE i.descricao = 'Frigobar'
+AND c.num_cliente NOT IN (
+    SELECT c2.num_cliente
+    FROM cliente c2
+    JOIN pedido p2 ON c2.num_cliente = p2.num_cliente
+    JOIN item_pedido ip2 ON p2.num_pedido = ip2.num_pedido
+    JOIN item i2 ON ip2.num_item = i2.num_item
+    WHERE i2.descricao = 'DVD'
+);
 ```
 
 ## 6. Selecionar o nome dos clientes da cidade “Caxias” que compraram “DVD” e também o nome dos clientes da cidade “Garibaldi” que compraram “Frigobar”.
