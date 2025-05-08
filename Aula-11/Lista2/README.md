@@ -24,7 +24,7 @@ SELECT
         "_",
         LEFT(departamento.Dnome, 3),
         departamento.Dnumero,
-        RIGHT(departamento.Dnome, 3),
+        RIGHT(projeto.Projnome, 3),
         projeto.Projnumero,
         funcionario.Pnome,
         SUBSTRING(funcionario.Cpf, 4, 3)
@@ -37,5 +37,5 @@ WHERE
     funcionario.Endereco LIKE "%São Paulo%" OR funcionario.Datanasc LIKE "%196_-__-__%"
 ORDER BY
     funcionario.Pnome
-DESC 
+DESC
 ```
