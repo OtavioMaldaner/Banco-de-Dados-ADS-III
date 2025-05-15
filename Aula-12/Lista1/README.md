@@ -98,7 +98,7 @@ SELECT
                 TIME(folha_ponto.saida),
                 TIME(folha_ponto.entrada)
             ),
-            "08:00:00"
+            "09:00:00"
         )
     ) AS horasExtras,
     MINUTE(
@@ -107,7 +107,7 @@ SELECT
                 TIME(folha_ponto.saida),
                 TIME(folha_ponto.entrada)
             ),
-            "08:00:00"
+            "09:00:00"
         )
     ) AS minutosExtras
 FROM
@@ -117,5 +117,5 @@ WHERE
     TIMEDIFF(
         TIME(folha_ponto.saida),
         TIME(folha_ponto.entrada)
-    ) > "08:00:00"
+    ) > "09:00:00"
 ```
