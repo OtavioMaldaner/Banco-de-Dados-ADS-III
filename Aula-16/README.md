@@ -18,13 +18,25 @@ GROUP BY
 
 ```sql
 SELECT
-    produto.categoria,
     SUM(
-        produto.preco * produto_pedido.quantidade
-    ) AS valor_vendido
+        CASE WHEN produto.categoria = 'A' THEN produto.preco * produto_pedido.quantidade ELSE 0
+    END
+) AS "A",
+SUM(
+    CASE WHEN produto.categoria = 'B' THEN produto.preco * produto_pedido.quantidade ELSE 0
+END
+) AS "B",
+SUM(
+    CASE WHEN produto.categoria = 'C' THEN produto.preco * produto_pedido.quantidade ELSE 0
+END
+) AS "C",
+SUM(
+    CASE WHEN produto.categoria = 'D' THEN produto.preco * produto_pedido.quantidade ELSE 0
+END
+) AS "D"
 FROM
     produto
-LEFT JOIN produto_pedido ON produto_pedido.produto_id = produto.id
-GROUP BY
-    produto.categoria
+LEFT JOIN produto_pedido
+ON
+    produto_pedido.produto_id = produto.id;
 ```
