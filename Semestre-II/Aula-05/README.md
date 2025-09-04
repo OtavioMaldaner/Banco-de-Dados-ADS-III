@@ -133,3 +133,95 @@ RETURN(
         departamento.Dnome = nome_departamento
 );
 ```
+
+# Lista 3
+
+## 1-Criar uma função que recebe o CPF do funcionário e retorna o valor do aumento do funcionário. Se a soma de horas trabalhadas em projetos pelo funcionário for maior ou igual a 40, o aumento deve ser de 20%. Caso contrário o aumento deve ser de 5%.
+
+```sql
+DELIMITER
+    $
+CREATE OR REPLACE FUNCTION valorAumento(cpf BIGINT) RETURNS DOUBLE BEGIN
+    DECLARE
+        horas DECIMAL ; DECLARE aumento DOUBLE ;
+    SET
+        horas =(
+        SELECT
+            SUM(trabalha_em.Horas)
+        FROM
+            trabalha_em
+        WHERE
+            trabalha_em.Fcpf = cpf
+    ) ; IF horas >= 40 THEN
+SET
+    aumento = 1.2 ; ELSE
+SET
+    aumento = 1.05 ;
+END IF ; RETURN aumento ; END$
+DELIMITER
+    ;
+```
+
+## 2-Fazer uma consulta para mostrar o uso da função que retorne o nome do funcionário e seu novo salário.
+
+```sql
+SELECT
+    CONCAT_WS(
+        " ",
+        funcionario.Pnome,
+        funcionario.Unome
+    ) AS nome,
+    funcionario.Salario AS salario_atual,
+    valorAumento(funcionario.Cpf) * funcionario.Salario AS novo_salario
+FROM
+    funcionario;
+```
+
+## 3-Criar uma função que recebe três 3 números de projeto como parâmetro e retorna o projeto com mais funcionários trabalhando nele.
+
+```sql
+DELIMITER $
+
+CREATE OR REPLACE FUNCTION projeto_mais_funcionarios(projeto1 INT, projeto2 INT, projeto3 INT)
+RETURNS INT
+BEGIN
+    DECLARE projeto_maior INT;
+    DECLARE count1 INT;
+    DECLARE count2 INT;
+    DECLARE count3 INT;
+
+
+    SELECT COUNT(DISTINCT trabalha_em.Fcpf) INTO count1
+    FROM trabalha_em
+    WHERE Pnr = projeto1;
+
+
+    SELECT COUNT(DISTINCT trabalha_em.Fcpf) INTO count2
+    FROM trabalha_em
+    WHERE Pnr = projeto2;
+
+
+    SELECT COUNT(DISTINCT trabalha_em.Fcpf) INTO count3
+    FROM trabalha_em
+    WHERE Pnr = projeto3;
+
+
+    IF count1 >= count2 AND count1 >= count3 THEN
+        SET projeto_maior = projeto1;
+    ELSEIF count2 >= count1 AND count2 >= count3 THEN
+        SET projeto_maior = projeto2;
+    ELSE
+        SET projeto_maior = projeto3;
+    END IF;
+
+    RETURN projeto_maior;
+END $
+
+DELIMITER ;
+```
+
+## 4-Fazer uma consulta para mostrar o uso da função.
+
+```sql
+SELECT projeto_mais_funcionarios(1, 2, 3) AS projeto_maior;
+```
