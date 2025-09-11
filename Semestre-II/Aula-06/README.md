@@ -69,3 +69,41 @@ END LOOP bucle_contagem ; RETURN resultado ; END $$
 DELIMITER
     ;
 ```
+
+## Exercício 4: Geração de Relatório: Crie uma função que gera um relatório com base em uma tabela de vendas. A tabela de vendas tem colunas id, data, valor. A função deve iterar pelas vendas em um período específico e calcular o total de vendas para cada dia. O relatório deve listar a data e o total de vendas para cada dia durante o período.
+
+```sql
+DELIMITER
+    $
+CREATE OR REPLACE FUNCTION gera_relatorios(
+    data_inicial DATE,
+    data_final DATE
+) RETURNS TEXT BEGIN
+    DECLARE
+        data_atual DATE ; DECLARE frase TEXT ;
+    SET
+        frase = "" ;
+    SET
+        data_atual = data_inicial ; WHILE data_final >= data_atual AND data_atual >= data_inicial
+    DO
+SET
+    frase = CONCAT(
+        frase,
+        "Data: ",
+        data_atual,
+        ", Total de Vendas: ",
+        (
+        SELECT
+            SUM(valor)
+        FROM
+            vendas
+        WHERE DATA
+            = data_atual
+    ),
+    "\n"
+    ) ;
+SET
+    data_atual = DATE_ADD(data_atual, INTERVAL 1 DAY) ;
+END WHILE ; RETURN frase ;
+END
+```
