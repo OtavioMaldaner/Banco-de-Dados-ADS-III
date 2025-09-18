@@ -118,3 +118,44 @@ END WHILE calculo ; END$
 DELIMITER
     ;
 ```
+
+## Exercício 4 - Cursor 1 (listar por setor) (incorreto)
+
+Crie uma procedure listar_funcionarios_cursor(p_setor_id) que percorre via cursor os funcionários do setor e exibe nome e salário.
+
+```sql
+DELIMITER
+    $
+CREATE OR REPLACE PROCEDURE listar_funcionarios_cursor(IN p_setor_id INT)
+BEGIN
+    DECLARE
+        nome VARCHAR(100) ; DECLARE salario DECIMAL(10, 2) ; DECLARE Fim INT DEFAULT FALSE ; DECLARE resultado TEXT DEFAULT '' ; DECLARE cur CURSOR FOR
+    SELECT
+        nome,
+        salario
+    FROM
+        funcionarios
+    WHERE
+        setor_id = p_setor_id ; DECLARE CONTINUE
+    HANDLER FOR NOT FOUND
+SET
+    Fim = TRUE ; OPEN cur ; myloop: LOOP FETCH cur
+INTO nome, salario ; IF Fim = TRUE THEN LEAVE myloop ;
+END IF ;
+SET
+    resultado = CONCAT(
+        resultado,
+        'Nome: ',
+        nome,
+        ', Salário: ',
+        salario,
+        '\n'
+    ) ;
+END LOOP myloop ; CLOSE cur ;
+SELECT
+    resultado ; END$
+DELIMITER
+    ;
+CALL
+    listar_funcionarios_cursor(1);
+```
